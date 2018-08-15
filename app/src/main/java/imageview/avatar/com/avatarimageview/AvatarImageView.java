@@ -2,7 +2,6 @@ package imageview.avatar.com.avatarimageview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
@@ -13,14 +12,12 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
@@ -31,12 +28,13 @@ public class AvatarImageView extends FrameLayout {
     private final int DEFAULT_IMAGE_RADIUS = 40;
     private final int DEFAULT_IMAGE_MARGIN = 0;
     private final float DEFAULT_TEXT_SIZE = 20f;
+    private final int DEFAULT_FONT_STYLE = -1;
 
     private int mImageShape = DEFAULT_IMAGE_SHAPE;
     private int mImageRadius = DEFAULT_IMAGE_RADIUS;
     private int mImageMargin = DEFAULT_IMAGE_MARGIN;
     private float mTextSize = DEFAULT_TEXT_SIZE;
-    private int mFontStyle;
+    private int mFontStyle = DEFAULT_FONT_STYLE;
 
     private AppCompatImageView mAppCompatImageView;
     private AppCompatTextView mAppCompatTextView;
@@ -64,9 +62,7 @@ public class AvatarImageView extends FrameLayout {
         mImageRadius = typedArray.getInteger(R.styleable.AvatarImageView_image_radius, DEFAULT_IMAGE_RADIUS);
         mTextSize = typedArray.getFloat(R.styleable.AvatarImageView_text_size, DEFAULT_TEXT_SIZE);
 
-        if (typedArray.hasValue(R.styleable.AvatarImageView_font_family)) {
-            mFontStyle = typedArray.getResourceId(R.styleable.AvatarImageView_font_family, -1);
-        }
+        mFontStyle = typedArray.getResourceId(R.styleable.AvatarImageView_font_family, DEFAULT_FONT_STYLE);
 
         typedArray.recycle();
 
@@ -83,7 +79,7 @@ public class AvatarImageView extends FrameLayout {
         mAppCompatTextView.setTextColor(ContextCompat.getColor(mContext, android.R.color.white));
         mAppCompatTextView.setTextSize(mTextSize);
         mAppCompatTextView.setGravity(Gravity.CENTER);
-        if (mFontStyle != -1) {
+        if (mFontStyle != DEFAULT_FONT_STYLE) {
             mAppCompatTextView.setTypeface(ResourcesCompat.getFont(mContext, mFontStyle));
         }
 
@@ -121,7 +117,6 @@ public class AvatarImageView extends FrameLayout {
                 .load(mImageUrl)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
-                .centerCrop()
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -142,7 +137,6 @@ public class AvatarImageView extends FrameLayout {
                 .load(mImageUrl)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
-                .centerCrop()
                 .transform(new RoundedCornersTransformation(mContext, mImageRadius, mImageMargin))
                 .listener(new RequestListener<Drawable>() {
                     @Override
@@ -164,7 +158,6 @@ public class AvatarImageView extends FrameLayout {
                 .load(mImageUrl)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
-                .centerCrop()
                 .apply(RequestOptions.circleCropTransform())
                 .listener(new RequestListener<Drawable>() {
                     @Override
