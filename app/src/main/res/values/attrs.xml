@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AvatarImageView">
+        <attr name="image_radius" format="integer" />
+        <attr name="image_margin" format="integer" />
+        <attr name="image_shape" format="string">
+            <enum name="normal" value="0" />
+            <enum name="round" value="1" />
+            <enum name="curved" value="2" />
+        </attr>
+        <attr name="text_size" format="float" />
+        <attr name="font_family" format="reference" />
+    </declare-styleable>
+</resources>
