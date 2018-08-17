@@ -36,8 +36,6 @@ Add the dependency from jCenter to your app's (not project) `build.gradle` file.
 ```groovy
 dependencies {
     implementation 'com.github.androidsoftcoders:AvatarImageView:1.0'
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 }
 ```
 
