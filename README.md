@@ -12,19 +12,30 @@ Our library is:
 
 ## Contents
 
-1. [Installation](#installation-one-step)
+1. [Installation](#installation-two-step)
 1. [Getting Started](#getting-started-two-steps)
 
-## Installation (One Step)
+## Installation (Two Step)
+
+### Step 1
+
+Add the dependency in project level gradle file.
+
+```groovy
+allprojects {
+		repositories {
+			maven { url 'https://jitpack.io' }
+		     }
+	   }
+```
+
+### Step 2
+
 Add the dependency from jCenter to your app's (not project) `build.gradle` file.
 
 ```groovy
-repositories {
-    jcenter()
-}
-
 dependencies {
-    implementation ''
+    implementation 'com.github.androidsoftcoders:AvatarImageView:1.0'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 }
@@ -35,7 +46,7 @@ dependencies {
 ### Prerequisites
 
 1. Android API 14+ is required as the `minSdkVersion` in your build.gradle.
-2. Add permissions (if necessary) to your `AndroidManifest.xml`
+2. Add permissions in your `AndroidManifest.xml` to load image.
 
 ```manifest
 <!-- if you want to load images from the internet -->
@@ -63,6 +74,14 @@ In your activity or fragment, insert `AvatarImageView` custom view.
 ```
 
 #### Additional properties to customize `AvatarImageView`
+
+```text
+    1. app:image_radius="12" (integer)
+    2. app:image_margin="5" (integer)
+    3. app:image_shape="normal" or "round" or "curved" (String)
+    4. app:text_size="18" (float)
+    5. app:font_family="@font/your_font_name" (reference)
+```
 
 1. **Round Image**
 
@@ -114,6 +133,17 @@ Do this:
 AvatarImageView avatarImageView = findViewById(R.id.imageView);
 avatarImageView.setAvatar("", "Your Avatar Name");
 ```
+
+Additional properties supported:
+```xml
+<imageview.avatar.com.avatarimageview.AvatarImageView
+        android:id="@+id/imageView"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:text_size="26"
+        app:font_family="@font/your_font_name" />
+```
+
 
 ## Thanks
 
