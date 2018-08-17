@@ -10,12 +10,12 @@ Our library is:
 - **Easy to implement**: Just add jCenter dependency for project in your app level gradle file and voila! Half of your work is done. The other half is to implement it in your project. We'll talk about that below :)
 - **Easy to understand**: Simple and neat code with proper documentation.
 
-##Contents
+## Contents
 
 1. [Installation](#installation-one-step)
 1. [Getting Started](#getting-started-two-steps)
 
-##Installation (One Step)
+## Installation (One Step)
 Add the dependency from jCenter to your app's (not project) `build.gradle` file.
 
 ```groovy
@@ -45,7 +45,7 @@ dependencies {
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 ```
 
-##Usage
+## Usage
 
 ### Add AvatarImageView to your layout
 
@@ -115,10 +115,10 @@ AvatarImageView avatarImageView = findViewById(R.id.imageView);
 avatarImageView.setAvatar("", "Your Avatar Name");
 ```
 
-##Thanks
+## Thanks
 
 - [Glide](https://github.com/bumptech/glide)
 
-##DemoApp
+## DemoApp
 DemoApp Coming Soon!!!
 
