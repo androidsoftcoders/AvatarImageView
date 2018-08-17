@@ -66,7 +66,7 @@ In your activity or fragment, insert `AvatarImageView` custom view.
 
 1. **Round Image**
 
-![](https://image.ibb.co/e3wwXe/round.png)
+![](https://image.ibb.co/goWDTK/round.png)
 
 ```xml
 <imageview.avatar.com.avatarimageview.AvatarImageView
@@ -85,7 +85,7 @@ avatarImageView.setAvatar("https://yourimageurl or file absolute path", "Avatar 
 
 2. **Add radius to your image**
 
-![](https://image.ibb.co/dHPTdK/curve.png)
+![](https://image.ibb.co/eAkJvz/curve.png)
 
 ```xml
 <imageview.avatar.com.avatarimageview.AvatarImageView
