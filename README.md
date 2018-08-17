@@ -126,7 +126,7 @@ avatarImageView.setAvatar("https://yourimageurl or file absolute path", "Avatar 
 
 3. **If you want to show text(nickname) instead of image like in the preview shown below:**
 
-![](https://image.ibb.co/fhz3vz/textimage.png)
+![](https://image.ibb.co/iT242e/textimage.png)
 
 Do this:
 ```java
