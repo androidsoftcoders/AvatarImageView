@@ -40,8 +40,7 @@ public class AvatarImageView extends FrameLayout {
     private AppCompatTextView mAppCompatTextView;
     private Context mContext;
 
-    private String mImageUrl;
-    private String mText;
+    private UserAvatar mUserAvatar;
 
     public AvatarImageView(@NonNull Context context) {
         this(context, null);
@@ -95,9 +94,8 @@ public class AvatarImageView extends FrameLayout {
         hideTextView();
     }
 
-    public void setAvatar(String imageUrl, String avatarName) {
-        mImageUrl = imageUrl;
-        mText = avatarName;
+    public void setAvatar(UserAvatar userAvatar) {
+        mUserAvatar = userAvatar;
 
         switch (mImageShape) {
             case 1:
@@ -114,7 +112,7 @@ public class AvatarImageView extends FrameLayout {
 
     private void setNormalImage() {
         GlideApp.with(mAppCompatImageView)
-                .load(mImageUrl)
+                .load(mUserAvatar.getAvatarImageUrl())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .listener(new RequestListener<Drawable>() {
@@ -134,7 +132,7 @@ public class AvatarImageView extends FrameLayout {
 
     private void setCurvedImage() {
         GlideApp.with(mAppCompatImageView)
-                .load(mImageUrl)
+                .load(mUserAvatar.getAvatarImageUrl())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .transform(new RoundedCornersTransformation(mContext, mImageRadius, mImageMargin))
@@ -155,7 +153,7 @@ public class AvatarImageView extends FrameLayout {
 
     private void setRoundImage() {
         GlideApp.with(mAppCompatImageView)
-                .load(mImageUrl)
+                .load(mUserAvatar.getAvatarImageUrl())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .apply(RequestOptions.circleCropTransform())
@@ -194,6 +192,6 @@ public class AvatarImageView extends FrameLayout {
         hideImageView();
         showTextView();
 
-        mAppCompatTextView.setText(NameUtils.getShortName(mText));
+        mAppCompatTextView.setText(mUserAvatar.getAvatarName().isEmpty() ? "" : NameUtils.getShortName(mUserAvatar.getAvatarName()));
     }
 }
