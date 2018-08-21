@@ -35,7 +35,7 @@ Add the dependency from jCenter to your app's (not project) `build.gradle` file.
 
 ```groovy
 dependencies {
-    implementation 'com.github.androidsoftcoders:AvatarImageView:1.0'
+    implementation 'com.github.androidsoftcoders:AvatarImageView:1.1'
 }
 ```
 
@@ -97,7 +97,10 @@ In your activity or fragment, insert `AvatarImageView` custom view.
 Then, in your activity:
 ```java
 AvatarImageView avatarImageView = findViewById(R.id.imageView);
-avatarImageView.setAvatar("https://yourimageurl or file absolute path", "Avatar Name");
+
+UserAvatar userAvatar = new UserAvatar("https://yourimageurl or file absolute path", "Avatar Name");
+
+avatarImageView.setAvatar(userAvatar);
 ```
 
 2. **Add radius to your image**
