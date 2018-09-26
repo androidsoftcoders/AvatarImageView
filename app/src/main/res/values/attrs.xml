@@ -15,15 +15,15 @@
         <attr name="start_color" format="reference" />
         <attr name="center_color" format="reference" />
         <attr name="end_color" format="reference" />
-        <attr name="gradient_angle" format="integer">
-            <enum name="0" value="0" />
-            <enum name="45" value="45" />
-            <enum name="90" value="90" />
-            <enum name="135" value="135" />
-            <enum name="180" value="180" />
-            <enum name="225" value="225" />
-            <enum name="270" value="270" />
-            <enum name="315" value="315" />
+        <attr name="gradient_angle" format="string">
+            <enum name="angle_0" value="0" />
+            <enum name="angle_45" value="45" />
+            <enum name="angle_90" value="90" />
+            <enum name="angle_135" value="135" />
+            <enum name="angle_180" value="180" />
+            <enum name="angle_225" value="225" />
+            <enum name="angle_270" value="270" />
+            <enum name="angle_315" value="315" />
         </attr>
     </declare-styleable>
 </resources>
