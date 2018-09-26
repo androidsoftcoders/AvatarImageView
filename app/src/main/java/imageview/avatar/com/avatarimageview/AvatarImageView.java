@@ -108,9 +108,9 @@ public class AvatarImageView extends FrameLayout {
         if (mGradientEnabled) {
             if (mStartColor == DEFAULT_START_COLOR && mCenterColor == DEFAULT_CENTER_COLOR && mEndColor == DEFAULT_END_COLOR) {
                 shortNameDrawable = new GradientDrawable(GradientDrawable.Orientation.BL_TR,
-                        new int[]{ContextCompat.getColor(mContext, ColorUtils.getRandomColor()),
-                                ContextCompat.getColor(mContext, ColorUtils.getRandomColor()),
-                                ContextCompat.getColor(mContext, ColorUtils.getRandomColor())});
+                        new int[]{ColorUtils.getRandomColor(),
+                                ColorUtils.getRandomColor(),
+                                ColorUtils.getRandomColor()});
             } else {
                 shortNameDrawable = new GradientDrawable(GradientDrawable.Orientation.BL_TR,
                         new int[]{mStartColor != DEFAULT_START_COLOR ? ContextCompat.getColor(mContext, mStartColor) :
