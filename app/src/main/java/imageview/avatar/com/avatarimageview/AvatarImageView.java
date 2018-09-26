@@ -30,11 +30,25 @@ public class AvatarImageView extends FrameLayout {
     private final float DEFAULT_TEXT_SIZE = 20f;
     private final int DEFAULT_FONT_STYLE = -1;
 
+    private final boolean DEFAULT_GRADIENT_ENABLED = false;
+    private final int DEFAULT_BG_COLOR = ColorUtils.getRandomColor();
+    private final int DEFAULT_START_COLOR = -1;
+    private final int DEFAULT_CENTER_COLOR = -1;
+    private final int DEFAULT_END_COLOR = -1;
+    private final int DEFAULT_GRADIENT_ANGLE = 0;
+
     private int mImageShape = DEFAULT_IMAGE_SHAPE;
     private int mImageRadius = DEFAULT_IMAGE_RADIUS;
     private int mImageMargin = DEFAULT_IMAGE_MARGIN;
     private float mTextSize = DEFAULT_TEXT_SIZE;
     private int mFontStyle = DEFAULT_FONT_STYLE;
+
+    private boolean mGradientEnabled = DEFAULT_GRADIENT_ENABLED;
+    private int mBgColor = DEFAULT_BG_COLOR;
+    private int mStartColor = DEFAULT_START_COLOR;
+    private int mCenterColor = DEFAULT_CENTER_COLOR;
+    private int mEndColor = DEFAULT_END_COLOR;
+    private int mGradientAngle = DEFAULT_GRADIENT_ANGLE;
 
     private AppCompatImageView mAppCompatImageView;
     private AppCompatTextView mAppCompatTextView;
@@ -63,6 +77,13 @@ public class AvatarImageView extends FrameLayout {
 
         mFontStyle = typedArray.getResourceId(R.styleable.AvatarImageView_font_family, DEFAULT_FONT_STYLE);
 
+        mGradientEnabled = typedArray.getBoolean(R.styleable.AvatarImageView_gradient_enabled, DEFAULT_GRADIENT_ENABLED);
+        mBgColor = typedArray.getResourceId(R.styleable.AvatarImageView_bg_color, DEFAULT_BG_COLOR);
+        mStartColor = typedArray.getResourceId(R.styleable.AvatarImageView_start_color, DEFAULT_START_COLOR);
+        mCenterColor = typedArray.getResourceId(R.styleable.AvatarImageView_center_color, DEFAULT_CENTER_COLOR);
+        mEndColor = typedArray.getResourceId(R.styleable.AvatarImageView_end_color, DEFAULT_END_COLOR);
+        mGradientAngle = typedArray.getInteger(R.styleable.AvatarImageView_gradient_angle, DEFAULT_GRADIENT_ANGLE);
+
         typedArray.recycle();
 
         init();
@@ -82,16 +103,57 @@ public class AvatarImageView extends FrameLayout {
             mAppCompatTextView.setTypeface(ResourcesCompat.getFont(mContext, mFontStyle));
         }
 
-        GradientDrawable shortNameDrawable = new GradientDrawable();
+        GradientDrawable shortNameDrawable;
+
+        if (mGradientEnabled) {
+            if (mStartColor == DEFAULT_START_COLOR && mCenterColor == DEFAULT_CENTER_COLOR && mEndColor == DEFAULT_END_COLOR) {
+                shortNameDrawable = new GradientDrawable(getGradientOrientation(),
+                        new int[]{ContextCompat.getColor(mContext, ColorUtils.getRandomColor()),
+                                ContextCompat.getColor(mContext, ColorUtils.getRandomColor()),
+                                ContextCompat.getColor(mContext, ColorUtils.getRandomColor())});
+            } else {
+                shortNameDrawable = new GradientDrawable(getGradientOrientation(),
+                        new int[]{mStartColor != DEFAULT_START_COLOR ? ContextCompat.getColor(mContext, mStartColor) :
+                                ContextCompat.getColor(mContext, android.R.color.white),
+                                mCenterColor != DEFAULT_START_COLOR ? ContextCompat.getColor(mContext, mCenterColor) :
+                                        ContextCompat.getColor(mContext, android.R.color.white),
+                                mEndColor != DEFAULT_START_COLOR ? ContextCompat.getColor(mContext, mEndColor) :
+                                        ContextCompat.getColor(mContext, android.R.color.white)});
+            }
+        } else {
+            shortNameDrawable = new GradientDrawable();
+            shortNameDrawable.setColor(ContextCompat.getColor(mContext, mBgColor));
+        }
+
         shortNameDrawable.setShape(GradientDrawable.OVAL);
         shortNameDrawable.setSize(mAppCompatTextView.getWidth(), mAppCompatTextView.getHeight());
-        shortNameDrawable.setColor(ColorUtils.getRandomColor());
         mAppCompatTextView.setBackgroundDrawable(shortNameDrawable);
 
         addView(mAppCompatImageView);
         addView(mAppCompatTextView);
 
         hideTextView();
+    }
+
+    private GradientDrawable.Orientation getGradientOrientation() {
+        switch (mGradientAngle) {
+            case 45:
+                return GradientDrawable.Orientation.BL_TR;
+            case 90:
+                return GradientDrawable.Orientation.BOTTOM_TOP;
+            case 135:
+                return GradientDrawable.Orientation.BR_TL;
+            case 180:
+                return GradientDrawable.Orientation.RIGHT_LEFT;
+            case 225:
+                return GradientDrawable.Orientation.TR_BL;
+            case 270:
+                return GradientDrawable.Orientation.TOP_BOTTOM;
+            case 315:
+                return GradientDrawable.Orientation.TL_BR;
+            default:
+                return GradientDrawable.Orientation.LEFT_RIGHT;
+        }
     }
 
     public void setAvatar(UserAvatar userAvatar) {
