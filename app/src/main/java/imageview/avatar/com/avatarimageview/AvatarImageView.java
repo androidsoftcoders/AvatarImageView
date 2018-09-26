@@ -115,9 +115,9 @@ public class AvatarImageView extends FrameLayout {
                 shortNameDrawable = new GradientDrawable(getGradientOrientation(),
                         new int[]{mStartColor != DEFAULT_START_COLOR ? ContextCompat.getColor(mContext, mStartColor) :
                                 ContextCompat.getColor(mContext, android.R.color.white),
-                                mCenterColor != DEFAULT_START_COLOR ? ContextCompat.getColor(mContext, mCenterColor) :
+                                mCenterColor != DEFAULT_CENTER_COLOR ? ContextCompat.getColor(mContext, mCenterColor) :
                                         ContextCompat.getColor(mContext, android.R.color.white),
-                                mEndColor != DEFAULT_START_COLOR ? ContextCompat.getColor(mContext, mEndColor) :
+                                mEndColor != DEFAULT_END_COLOR ? ContextCompat.getColor(mContext, mEndColor) :
                                         ContextCompat.getColor(mContext, android.R.color.white)});
             }
         } else {
