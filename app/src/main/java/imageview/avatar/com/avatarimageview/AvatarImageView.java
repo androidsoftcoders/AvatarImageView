@@ -31,7 +31,7 @@ public class AvatarImageView extends FrameLayout {
     private final int DEFAULT_FONT_STYLE = -1;
 
     private final boolean DEFAULT_GRADIENT_ENABLED = false;
-    private final int DEFAULT_BG_COLOR = ColorUtils.getRandomColor();
+    private final int DEFAULT_BG_COLOR = -1;
     private final int DEFAULT_START_COLOR = -1;
     private final int DEFAULT_CENTER_COLOR = -1;
     private final int DEFAULT_END_COLOR = -1;
@@ -122,7 +122,9 @@ public class AvatarImageView extends FrameLayout {
             }
         } else {
             shortNameDrawable = new GradientDrawable();
-            shortNameDrawable.setColor(ContextCompat.getColor(mContext, mBgColor));
+            shortNameDrawable.setColor(mBgColor != DEFAULT_BG_COLOR ?
+                    ContextCompat.getColor(mContext, mBgColor) :
+                    ColorUtils.getRandomColor());
         }
 
         shortNameDrawable.setShape(GradientDrawable.OVAL);
