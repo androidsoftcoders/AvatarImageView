@@ -4,16 +4,17 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -159,6 +160,8 @@ public class AvatarImageView extends FrameLayout {
     }
 
     public void setAvatar(UserAvatar userAvatar) {
+        mAppCompatImageView.setImageResource(0);
+
         mUserAvatar = userAvatar;
 
         switch (mImageShape) {
@@ -176,7 +179,7 @@ public class AvatarImageView extends FrameLayout {
 
     private void setNormalImage() {
         GlideApp.with(mAppCompatImageView)
-                .load(mUserAvatar.getAvatarImageUrl())
+                .load(mUserAvatar.getImageFile() != null ? mUserAvatar.getImageFile() : mUserAvatar.getAvatarImageUrl())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .listener(new RequestListener<Drawable>() {
@@ -188,6 +191,7 @@ public class AvatarImageView extends FrameLayout {
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        imageLoaded();
                         return false;
                     }
                 })
@@ -196,7 +200,7 @@ public class AvatarImageView extends FrameLayout {
 
     private void setCurvedImage() {
         GlideApp.with(mAppCompatImageView)
-                .load(mUserAvatar.getAvatarImageUrl())
+                .load(mUserAvatar.getImageFile() != null ? mUserAvatar.getImageFile() : mUserAvatar.getAvatarImageUrl())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .transform(new RoundedCornersTransformation(mContext, mImageRadius, mImageMargin))
@@ -209,6 +213,7 @@ public class AvatarImageView extends FrameLayout {
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        imageLoaded();
                         return false;
                     }
                 })
@@ -217,7 +222,7 @@ public class AvatarImageView extends FrameLayout {
 
     private void setRoundImage() {
         GlideApp.with(mAppCompatImageView)
-                .load(mUserAvatar.getAvatarImageUrl())
+                .load(mUserAvatar.getImageFile() != null ? mUserAvatar.getImageFile() : mUserAvatar.getAvatarImageUrl())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .apply(RequestOptions.circleCropTransform())
@@ -230,6 +235,7 @@ public class AvatarImageView extends FrameLayout {
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        imageLoaded();
                         return false;
                     }
                 })
@@ -250,6 +256,11 @@ public class AvatarImageView extends FrameLayout {
 
     private void showTextView() {
         mAppCompatTextView.setVisibility(VISIBLE);
+    }
+
+    private void imageLoaded(){
+        showImageView();
+        hideTextView();
     }
 
     private void setAvatarText() {

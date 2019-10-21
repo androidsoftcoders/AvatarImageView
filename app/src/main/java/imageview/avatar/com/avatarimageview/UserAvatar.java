@@ -1,10 +1,18 @@
 package imageview.avatar.com.avatarimageview;
 
+import java.io.File;
+
 public class UserAvatar {
     private String avatarImageUrl;
+    private File imageFile;
     private String avatarName;
 
     public UserAvatar() {
+    }
+
+    public UserAvatar(File imageFile, String avatarName) {
+        this.imageFile = imageFile;
+        this.avatarName = avatarName;
     }
 
     public UserAvatar(String avatarImageUrl, String avatarName) {
@@ -18,6 +26,14 @@ public class UserAvatar {
 
     public void setAvatarImageUrl(String avatarImageUrl) {
         this.avatarImageUrl = avatarImageUrl;
+    }
+
+    public File getImageFile() {
+        return imageFile;
+    }
+
+    public void setFile(File imageFile) {
+        this.imageFile = imageFile;
     }
 
     public String getAvatarName() {
